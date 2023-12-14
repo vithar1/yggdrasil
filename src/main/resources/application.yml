@@ -21,3 +21,6 @@ spring:
   docker:
     compose:
       lifecycle-management: start-only
+
+vaadin:
+  whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.dev.yggdrasil
