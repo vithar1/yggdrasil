@@ -19,6 +19,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,10 @@ public class ArticlesView extends Div implements AfterNavigationObserver {
     @Autowired
     public ArticlesView(ArticleService articleService) {
         this.articleService = articleService;
+    }
+
+    @PostConstruct
+    private void init() {
         addClassName("articles-view");
         setSizeFull();
         grid.setHeight("100%");

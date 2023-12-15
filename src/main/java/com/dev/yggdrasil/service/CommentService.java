@@ -1,27 +1,28 @@
 package com.dev.yggdrasil.service;
 
+import com.dev.yggdrasil.domain.Article;
 import com.dev.yggdrasil.domain.Comment;
 import com.dev.yggdrasil.domain.User;
+import com.dev.yggdrasil.model.dto.ArticleDTO;
 import com.dev.yggdrasil.model.dto.CommentDTO;
+import com.dev.yggdrasil.repos.ArticleRepository;
 import com.dev.yggdrasil.repos.CommentRepository;
 import com.dev.yggdrasil.repos.UserRepository;
 import com.dev.yggdrasil.util.NotFoundException;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
-
-    public CommentService(final CommentRepository commentRepository,
-            final UserRepository userRepository) {
-        this.commentRepository = commentRepository;
-        this.userRepository = userRepository;
-    }
+    private final ArticleRepository articleRepository;
 
     public List<CommentDTO> findAll() {
         final List<Comment> comments = commentRepository.findAll(Sort.by("id"));
@@ -57,6 +58,15 @@ public class CommentService {
         commentDTO.setId(comment.getId());
         commentDTO.setText(comment.getText());
         commentDTO.setUser(comment.getUser() == null ? null : comment.getUser().getId());
+        commentDTO.setUsername(comment.getUser() == null ? null : comment.getUser().getUsername());
+        Article article = articleRepository.findById(commentDTO.getArticle().getId()).get();
+        commentDTO.setArticle(ArticleDTO.builder()
+                        .title(article.getTitle())
+                        .createdDate(article.getCreatedDate())
+                        .lastEditTime(article.getLastEditTime())
+                        .id(article.getId())
+                .build()
+        );
         return commentDTO;
     }
 
@@ -65,6 +75,7 @@ public class CommentService {
         final User user = commentDTO.getUser() == null ? null : userRepository.findById(commentDTO.getUser())
                 .orElseThrow(() -> new NotFoundException("user not found"));
         comment.setUser(user);
+        comment.setArticle(articleRepository.findById(commentDTO.getArticle().getId()).get());
         return comment;
     }
 

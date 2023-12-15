@@ -2,12 +2,14 @@ package com.dev.yggdrasil.model.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentDTO {
 
     private Long id;
@@ -19,4 +21,8 @@ public class CommentDTO {
     @NotNull
     private Long user;
 
+    @NotNull
+    private String username;
+
+    private ArticleDTO article;
 }

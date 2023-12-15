@@ -4,11 +4,13 @@ import com.dev.yggdrasil.domain.Article;
 import com.dev.yggdrasil.domain.Comment;
 import com.dev.yggdrasil.domain.User;
 import com.dev.yggdrasil.model.dto.ArticleDTO;
+import com.dev.yggdrasil.model.dto.CommentDTO;
 import com.dev.yggdrasil.repos.ArticleRepository;
 import com.dev.yggdrasil.repos.CommentRepository;
 import com.dev.yggdrasil.repos.UserRepository;
 import com.dev.yggdrasil.util.NotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -63,7 +65,11 @@ public class ArticleService {
         articleDTO.setCreatedDate(article.getCreatedDate());
         articleDTO.setTimeToUnderstand(article.getTimeToUnderstand());
         articleDTO.setLastEditTime(article.getLastEditTime());
-        articleDTO.setComments(article.getComments() == null ? null : article.getComments().getId());
+        articleDTO.setComments(article.getComments().stream().map((item) -> CommentDTO.builder()
+                .text(item.getText())
+                .username(item.getUser().getUsername())
+                .user(item.getUser().getId())
+                .build()).collect(Collectors.toList()));
         return articleDTO;
     }
 
@@ -73,9 +79,9 @@ public class ArticleService {
         article.setCreatedDate(articleDTO.getCreatedDate());
         article.setTimeToUnderstand(articleDTO.getTimeToUnderstand());
         article.setLastEditTime(articleDTO.getLastEditTime());
-        final Comment comments = articleDTO.getComments() == null ? null : commentRepository.findById(articleDTO.getComments())
-                .orElseThrow(() -> new NotFoundException("comments not found"));
-        article.setComments(comments);
+//        final Comment comments = articleDTO.getComments() == null ? null : commentRepository.findById(articleDTO.getComments())
+//                .orElseThrow(() -> new NotFoundException("comments not found"));
+//        article.setComments(comments);
 //        final User user = articleDTO.getUser() == null ? null : userRepository.findById(articleDTO.getUser())
 //                .orElseThrow(() -> new NotFoundException("user not found"));
 //        article.setUser(user);

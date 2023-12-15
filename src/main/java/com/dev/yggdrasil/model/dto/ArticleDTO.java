@@ -3,6 +3,7 @@ package com.dev.yggdrasil.model.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.*;
 
@@ -30,6 +31,6 @@ public class ArticleDTO {
 
     private LocalDate lastEditTime;
 
-    private Long comments;
+    private List<CommentDTO> comments;
 
 }
