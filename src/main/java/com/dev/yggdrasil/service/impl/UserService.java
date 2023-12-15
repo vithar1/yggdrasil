@@ -1,4 +1,4 @@
-package com.dev.yggdrasil.service;
+package com.dev.yggdrasil.service.impl;
 
 import com.dev.yggdrasil.domain.Authority;
 import com.dev.yggdrasil.domain.User;

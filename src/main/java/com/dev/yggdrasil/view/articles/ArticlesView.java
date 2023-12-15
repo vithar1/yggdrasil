@@ -2,6 +2,7 @@ package com.dev.yggdrasil.view.articles;
 
 import com.dev.yggdrasil.model.dto.ArticleDTO;
 import com.dev.yggdrasil.service.ArticleService;
+import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import com.dev.yggdrasil.view.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.grid.Grid;
@@ -13,10 +14,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.AfterNavigationEvent;
-import com.vaadin.flow.router.AfterNavigationObserver;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import jakarta.annotation.PostConstruct;
@@ -35,7 +33,7 @@ public class ArticlesView extends Div implements AfterNavigationObserver {
     Grid<ArticleDTO> grid = new Grid<>();
 
     @Autowired
-    public ArticlesView(ArticleService articleService) {
+    public ArticlesView(MonolithArticleServiceImpl articleService) {
         this.articleService = articleService;
     }
 
@@ -46,12 +44,14 @@ public class ArticlesView extends Div implements AfterNavigationObserver {
         grid.setHeight("100%");
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS);
         grid.addComponentColumn(this::createCard);
-        grid.addCellFocusListener(item -> {
-            getElement().getStyle().set("cursor", "pointer");
-        });
+        grid.addCellFocusListener(item -> getElement().getStyle().set("cursor", "pointer"));
         grid.addItemClickListener(item -> {
-            VaadinSession.getCurrent().setAttribute("selectedItem", item.getItem().getId());
-            UI.getCurrent().navigate("article-view");
+            grid.getUI().ifPresent(ui -> ui.navigate(
+                    ArticleView.class,
+                    new RouteParam("articleId", item.getItem().getId())
+            ));
+//            VaadinSession.getCurrent().setAttribute("selectedItem", item.getItem().getId());
+//            UI.getCurrent().navigate("article-view");
         });
         add(grid);
     }

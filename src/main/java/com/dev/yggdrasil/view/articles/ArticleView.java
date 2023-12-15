@@ -1,14 +1,24 @@
 package com.dev.yggdrasil.view.articles;
 
+import com.dev.yggdrasil.domain.User;
 import com.dev.yggdrasil.model.dto.ArticleDTO;
+import com.dev.yggdrasil.model.dto.CommentDTO;
 import com.dev.yggdrasil.service.ArticleService;
+import com.dev.yggdrasil.service.CommentService;
+import com.dev.yggdrasil.service.impl.UserService;
+import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import com.dev.yggdrasil.view.MainLayout;
 import com.dev.yggdrasil.view.comments.CommentComponent;
-import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
@@ -17,23 +27,30 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @PageTitle("Articles")
-@Route(value = "article-view", layout = MainLayout.class)
+@Route(value = "article/:articleId?", layout = MainLayout.class)
 @AnonymousAllowed
 @Component
-public class ArticleView extends VerticalLayout {
+public class ArticleView extends VerticalLayout implements BeforeEnterObserver {
     H2 pageTitle;
     Paragraph articleParagraph;
     Paragraph readingTimeParagraph;
     VerticalLayout contentLayout;
     Div centeringDiv;
-    private final CommentComponent commentComponent;
     private final ArticleService articleService;
+    private final CommentService commentService;
+    private final UserService userService;
+    private TextField commentField;
+    private CommentComponent commentComponent;
 
-    @Autowired
-    public ArticleView(CommentComponent commentComponent, ArticleService articleService) {
-        this.commentComponent = commentComponent;
+    ;@Autowired
+    public ArticleView(MonolithArticleServiceImpl articleService, CommentService commentService, UserService userService) {
         this.articleService = articleService;
+        this.commentService = commentService;
+        this.userService = userService;
     }
 
     @PostConstruct
@@ -41,7 +58,8 @@ public class ArticleView extends VerticalLayout {
         pageTitle = new H2();;
         articleParagraph = new Paragraph();
         readingTimeParagraph = new Paragraph();
-        readingTimeParagraph.getStyle().set("color", "gray"); // Установка цвета текста серым
+        readingTimeParagraph.getStyle().set("color", "gray");
+        commentComponent = new CommentComponent(articleService, commentService,userService);
         contentLayout = new VerticalLayout(pageTitle,readingTimeParagraph, articleParagraph, commentComponent);
         contentLayout.setSizeFull();
         contentLayout.setAlignItems(Alignment.CENTER);
@@ -53,22 +71,14 @@ public class ArticleView extends VerticalLayout {
     }
 
     @Override
-    protected void onAttach(AttachEvent attachEvent) {
-        super.onAttach(attachEvent);
-        VaadinSession currentSession = VaadinSession.getCurrent();
-        long selectedItemId = 0L;
-        ArticleDTO articleDTO = new ArticleDTO();
-        if( currentSession != null) {
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        long articleID = beforeEnterEvent.getRouteParameters().getInteger("articleId").get();
 
-            selectedItemId = (long) VaadinSession.getCurrent().getAttribute("selectedItem");
-            articleDTO = this.articleService.get(selectedItemId);
-            pageTitle.setText(articleDTO.getTitle());
-            articleParagraph.getElement().setProperty("innerHTML", articleDTO.getText());
+        ArticleDTO articleDTO = articleService.get(articleID);
+        pageTitle.setText(articleDTO.getTitle());
+        articleParagraph.getElement().setProperty("innerHTML", articleDTO.getText());
+        readingTimeParagraph.setText("Время для прочтения: " + articleDTO.getTimeToUnderstand() + "минут");
 
-            readingTimeParagraph.setText("Время для прочтения: " + articleDTO.getTimeToUnderstand() + "минут");
-
-            commentComponent.setArticleId(selectedItemId);
-        }
-//        VaadinSession.getCurrent().setAttribute("selectedItem", null);
+        commentComponent.renderComments(articleID);
     }
 }

@@ -1,7 +1,7 @@
 package com.dev.yggdrasil.web.rest;
 
 import com.dev.yggdrasil.model.dto.UserDTO;
-import com.dev.yggdrasil.service.UserService;
+import com.dev.yggdrasil.service.impl.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;

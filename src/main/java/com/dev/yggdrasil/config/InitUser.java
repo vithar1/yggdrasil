@@ -4,7 +4,7 @@ import com.dev.yggdrasil.domain.Authority;
 import com.dev.yggdrasil.model.dto.UserDTO;
 import com.dev.yggdrasil.repos.AuthorityRepository;
 import com.dev.yggdrasil.repos.UserRepository;
-import com.dev.yggdrasil.service.UserService;
+import com.dev.yggdrasil.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;

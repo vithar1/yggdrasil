@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: monolith
   datasource:
     url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/yggdrasil}
     username: ${JDBC_DATABASE_USERNAME:postgres}
