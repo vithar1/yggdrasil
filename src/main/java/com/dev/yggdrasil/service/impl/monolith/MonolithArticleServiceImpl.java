@@ -4,18 +4,16 @@ import com.dev.yggdrasil.domain.Article;
 import com.dev.yggdrasil.domain.User;
 import com.dev.yggdrasil.mapper.ArticleMapper;
 import com.dev.yggdrasil.model.dto.ArticleDTO;
-import com.dev.yggdrasil.model.dto.CommentDTO;
 import com.dev.yggdrasil.repos.ArticleRepository;
 import com.dev.yggdrasil.service.ArticleService;
 import com.dev.yggdrasil.service.impl.UserService;
 import com.dev.yggdrasil.util.NotFoundException;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service

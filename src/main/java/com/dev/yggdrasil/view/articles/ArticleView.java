@@ -1,34 +1,24 @@
 package com.dev.yggdrasil.view.articles;
 
-import com.dev.yggdrasil.domain.User;
 import com.dev.yggdrasil.model.dto.ArticleDTO;
-import com.dev.yggdrasil.model.dto.CommentDTO;
 import com.dev.yggdrasil.service.ArticleService;
 import com.dev.yggdrasil.service.CommentService;
 import com.dev.yggdrasil.service.impl.UserService;
 import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import com.dev.yggdrasil.view.MainLayout;
 import com.dev.yggdrasil.view.comments.CommentComponent;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @PageTitle("Articles")
 @Route(value = "article/:articleId?", layout = MainLayout.class)
@@ -43,7 +33,6 @@ public class ArticleView extends VerticalLayout implements BeforeEnterObserver {
     private final ArticleService articleService;
     private final CommentService commentService;
     private final UserService userService;
-    private TextField commentField;
     private CommentComponent commentComponent;
 
     ;@Autowired

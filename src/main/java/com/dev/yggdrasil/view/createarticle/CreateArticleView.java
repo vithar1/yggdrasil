@@ -32,8 +32,6 @@ public class CreateArticleView extends Main {
 
     private final ArticleService articleService;
 
-    private final VerticalLayout verticalLayout;
-
     @Autowired
     public CreateArticleView(MonolithArticleServiceImpl articleService) {
         this.articleService = articleService;
@@ -43,7 +41,7 @@ public class CreateArticleView extends Main {
         title = new TextField("Title");
         timeToUnderstand = new IntegerField("Time to understand");
 
-        verticalLayout = new VerticalLayout();
+        VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.add(title);
         verticalLayout.add(editor);
         verticalLayout.add(timeToUnderstand);

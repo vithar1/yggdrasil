@@ -72,7 +72,7 @@ public class UserService {
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
         userDTO.setAuthorities(user.getAuthorities().stream()
-                .map(authority -> authority.getId())
+                .map(Authority::getId)
                 .toList());
         return userDTO;
     }

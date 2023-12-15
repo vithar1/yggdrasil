@@ -12,7 +12,6 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.server.VaadinSession;
 
 import java.util.ArrayList;
 import java.util.List;
