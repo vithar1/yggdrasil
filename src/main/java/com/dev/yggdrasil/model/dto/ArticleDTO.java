@@ -3,12 +3,15 @@ package com.dev.yggdrasil.model.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArticleDTO {
 
     private Long id;
@@ -28,8 +31,5 @@ public class ArticleDTO {
     private LocalDate lastEditTime;
 
     private Long comments;
-
-    @NotNull
-    private Long user;
 
 }

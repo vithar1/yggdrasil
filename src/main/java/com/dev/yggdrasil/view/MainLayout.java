@@ -33,11 +33,11 @@ public class MainLayout extends AppLayout {
     private H2 viewTitle;
 
     private AuthenticatedUser authenticatedUser;
-//    private AccessAnnotationChecker accessChecker;
+    private AccessAnnotationChecker accessChecker;
 
-    public MainLayout(AuthenticatedUser authenticatedUser){//, AccessAnnotationChecker accessChecker) {
+    public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker) {
         this.authenticatedUser = authenticatedUser;
-//        this.accessChecker = accessChecker;
+        this.accessChecker = accessChecker;
 
         setPrimarySection(Section.DRAWER);
         addDrawerContent();
@@ -67,22 +67,22 @@ public class MainLayout extends AppLayout {
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
 
-//        if (accessChecker.hasAccess(HomeView.class)) {
+        if (accessChecker.hasAccess(HomeView.class)) {
             nav.addItem(new SideNavItem("Home", HomeView.class, LineAwesomeIcon.GLOBE_SOLID.create()));
 
-//        }
-//        if (accessChecker.hasAccess(AboutView.class)) {
+        }
+        if (accessChecker.hasAccess(AboutView.class)) {
             nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
 
-//        }
-//        if (accessChecker.hasAccess(ArticlesView.class)) {
+        }
+        if (accessChecker.hasAccess(ArticlesView.class)) {
             nav.addItem(new SideNavItem("Articles", ArticlesView.class, LineAwesomeIcon.LIST_SOLID.create()));
 
-//        }
-//        if (accessChecker.hasAccess(CreateArticleView.class)) {
+        }
+        if (accessChecker.hasAccess(CreateArticleView.class)) {
             nav.addItem(new SideNavItem("Create Article", CreateArticleView.class, LineAwesomeIcon.EDIT.create()));
 
-//        }
+        }
 
         return nav;
     }

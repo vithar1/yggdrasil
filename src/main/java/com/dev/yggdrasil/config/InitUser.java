@@ -3,6 +3,7 @@ package com.dev.yggdrasil.config;
 import com.dev.yggdrasil.domain.Authority;
 import com.dev.yggdrasil.model.dto.UserDTO;
 import com.dev.yggdrasil.repos.AuthorityRepository;
+import com.dev.yggdrasil.repos.UserRepository;
 import com.dev.yggdrasil.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -15,21 +16,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InitUser implements CommandLineRunner{
     private final UserService userService;
+    private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
-        Authority authority = new Authority();
-        authority.setName("ROLE_USER");
-        authority = authorityRepository.save(authority);
+        if (! userRepository.existsByUsername("user")) {
+            Authority authority = new Authority();
+            authority.setName("ROLE_USER");
+            authority = authorityRepository.save(authority);
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setEmail("user@gmail.com");
-        userDTO.setUsername("user");
-        userDTO.setName("user");
-        userDTO.setPassword(passwordEncoder.encode("user"));
-        userDTO.setAuthorities(List.of(authority.getId()));
-        userService.create(userDTO);
+            UserDTO userDTO = new UserDTO();
+            userDTO.setEmail("user@gmail.com");
+            userDTO.setUsername("user");
+            userDTO.setName("user");
+            userDTO.setPassword(passwordEncoder.encode("user"));
+            userDTO.setAuthorities(List.of(authority.getId()));
+            userService.create(userDTO);
+        }
     }
 }

@@ -23,4 +23,4 @@ spring:
       lifecycle-management: start-only
 
 vaadin:
-  whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.dev.yggdrasil
+  whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.dev.yggdrasil,com.wontlost
