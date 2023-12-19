@@ -3,7 +3,6 @@ package com.dev.yggdrasil.view.createarticle;
 
 import com.dev.yggdrasil.model.dto.ArticleDTO;
 import com.dev.yggdrasil.service.ArticleService;
-import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import com.dev.yggdrasil.view.MainLayout;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.ClickEvent;
@@ -33,7 +32,7 @@ public class CreateArticleView extends Main {
     private final ArticleService articleService;
 
     @Autowired
-    public CreateArticleView(MonolithArticleServiceImpl articleService) {
+    public CreateArticleView(ArticleService articleService) {
         this.articleService = articleService;
         editor = new WysiwygE("300px", "100vw");
         editor.addValueChangeListener(this::onValueChange);

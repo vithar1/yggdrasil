@@ -4,7 +4,6 @@ import com.dev.yggdrasil.model.dto.ArticleDTO;
 import com.dev.yggdrasil.service.ArticleService;
 import com.dev.yggdrasil.service.CommentService;
 import com.dev.yggdrasil.service.impl.UserService;
-import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import com.dev.yggdrasil.view.MainLayout;
 import com.dev.yggdrasil.view.comments.CommentComponent;
 import com.vaadin.flow.component.html.Div;
@@ -36,7 +35,7 @@ public class ArticleView extends VerticalLayout implements BeforeEnterObserver {
     private CommentComponent commentComponent;
 
     ;@Autowired
-    public ArticleView(MonolithArticleServiceImpl articleService, CommentService commentService, UserService userService) {
+    public ArticleView(ArticleService articleService, CommentService commentService, UserService userService) {
         this.articleService = articleService;
         this.commentService = commentService;
         this.userService = userService;

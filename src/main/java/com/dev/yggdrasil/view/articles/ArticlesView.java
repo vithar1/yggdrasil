@@ -2,7 +2,6 @@ package com.dev.yggdrasil.view.articles;
 
 import com.dev.yggdrasil.model.dto.ArticleDTO;
 import com.dev.yggdrasil.service.ArticleService;
-import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import com.dev.yggdrasil.view.MainLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
@@ -31,7 +30,7 @@ public class ArticlesView extends Div implements AfterNavigationObserver {
     Grid<ArticleDTO> grid = new Grid<>();
 
     @Autowired
-    public ArticlesView(MonolithArticleServiceImpl articleService) {
+    public ArticlesView(ArticleService articleService) {
         this.articleService = articleService;
     }
 

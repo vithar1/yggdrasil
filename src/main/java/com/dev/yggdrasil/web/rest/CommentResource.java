@@ -2,7 +2,6 @@ package com.dev.yggdrasil.web.rest;
 
 import com.dev.yggdrasil.model.dto.CommentDTO;
 import com.dev.yggdrasil.service.CommentService;
-import com.dev.yggdrasil.service.impl.monolith.MonolithCommentServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +17,7 @@ public class CommentResource {
 
     private final CommentService commentService;
 
-    public CommentResource(final MonolithCommentServiceImpl commentService) {
+    public CommentResource(final CommentService commentService) {
         this.commentService = commentService;
     }
 

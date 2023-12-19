@@ -2,7 +2,6 @@ package com.dev.yggdrasil.web.rest;
 
 import com.dev.yggdrasil.model.dto.ArticleDTO;
 import com.dev.yggdrasil.service.ArticleService;
-import com.dev.yggdrasil.service.impl.monolith.MonolithArticleServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +17,7 @@ public class ArticleResource {
 
     private final ArticleService articleService;
 
-    public ArticleResource(final MonolithArticleServiceImpl articleService) {
+    public ArticleResource(final ArticleService articleService) {
         this.articleService = articleService;
     }
 
