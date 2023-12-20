@@ -6,6 +6,7 @@ import com.dev.yggdrasil.view.about.AboutView;
 import com.dev.yggdrasil.view.articles.ArticlesView;
 import com.dev.yggdrasil.view.createarticle.CreateArticleView;
 import com.dev.yggdrasil.view.home.HomeView;
+import com.dev.yggdrasil.view.note.NoteView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -81,6 +82,10 @@ public class MainLayout extends AppLayout {
         }
         if (accessChecker.hasAccess(CreateArticleView.class)) {
             nav.addItem(new SideNavItem("Create Article", CreateArticleView.class, LineAwesomeIcon.EDIT.create()));
+
+        }
+        if (accessChecker.hasAccess(NoteView.class)) {
+            nav.addItem(new SideNavItem("Note", NoteView.class, LineAwesomeIcon.EDIT.create()));
 
         }
 
