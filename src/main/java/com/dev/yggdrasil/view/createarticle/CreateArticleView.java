@@ -23,7 +23,6 @@ import java.time.LocalDate;
 @PageTitle("Create Article")
 @Route(value = "create-article", layout = MainLayout.class)
 @PermitAll
-@Component
 public class CreateArticleView extends Main {
     private final WysiwygE editor;
     private final TextField title;
@@ -31,8 +30,7 @@ public class CreateArticleView extends Main {
 
     private final ArticleService articleService;
 
-    @Autowired
-    public CreateArticleView(ArticleService articleService) {
+    public CreateArticleView(@Autowired ArticleService articleService) {
         this.articleService = articleService;
         editor = new WysiwygE("300px", "100vw");
         editor.addValueChangeListener(this::onValueChange);
