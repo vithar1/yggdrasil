@@ -7,6 +7,7 @@ import com.dev.yggdrasil.view.articles.ArticlesView;
 import com.dev.yggdrasil.view.createarticle.CreateArticleView;
 import com.dev.yggdrasil.view.home.HomeView;
 import com.dev.yggdrasil.view.note.NoteView;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;

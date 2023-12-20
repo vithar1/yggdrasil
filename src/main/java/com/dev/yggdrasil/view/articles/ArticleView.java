@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 @PageTitle("Articles")
 @Route(value = "article/:articleId?", layout = MainLayout.class)
 @AnonymousAllowed
-@Component
 public class ArticleView extends VerticalLayout implements BeforeEnterObserver {
     H2 pageTitle;
     Paragraph articleParagraph;
@@ -34,15 +33,12 @@ public class ArticleView extends VerticalLayout implements BeforeEnterObserver {
     private final UserService userService;
     private CommentComponent commentComponent;
 
-    ;@Autowired
-    public ArticleView(ArticleService articleService, CommentService commentService, UserService userService) {
+
+    public ArticleView(@Autowired ArticleService articleService, @Autowired CommentService commentService, @Autowired UserService userService) {
         this.articleService = articleService;
         this.commentService = commentService;
         this.userService = userService;
-    }
 
-    @PostConstruct
-    private void init() {
         pageTitle = new H2();;
         articleParagraph = new Paragraph();
         readingTimeParagraph = new Paragraph();
@@ -57,6 +53,11 @@ public class ArticleView extends VerticalLayout implements BeforeEnterObserver {
         setSizeFull();
         add(centeringDiv);
     }
+
+//    @PostConstruct
+//    private void init() {
+//
+//    }
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {

@@ -23,19 +23,14 @@ import java.util.List;
 @PageTitle("Articles")
 @Route(value = "articles", layout = MainLayout.class)
 @AnonymousAllowed
-@Component
 public class ArticlesView extends Div implements AfterNavigationObserver {
 
     private final ArticleService articleService;
     Grid<ArticleDTO> grid = new Grid<>();
 
-    @Autowired
-    public ArticlesView(ArticleService articleService) {
+    public ArticlesView(@Autowired ArticleService articleService) {
         this.articleService = articleService;
-    }
 
-    @PostConstruct
-    private void init() {
         addClassName("articles-view");
         setSizeFull();
         grid.setHeight("100%");
@@ -52,6 +47,11 @@ public class ArticlesView extends Div implements AfterNavigationObserver {
         });
         add(grid);
     }
+
+//    @PostConstruct
+//    private void init() {
+//
+//    }
 
     private HorizontalLayout createCard(ArticleDTO articleDTO) {
         HorizontalLayout card = new HorizontalLayout();

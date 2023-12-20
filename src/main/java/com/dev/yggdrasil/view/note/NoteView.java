@@ -7,9 +7,12 @@ import com.dev.yggdrasil.model.dto.NoteDTO;
 import com.dev.yggdrasil.service.ArticleService;
 import com.dev.yggdrasil.view.MainLayout;
 import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Main;
+import com.vaadin.flow.component.map.configuration.View;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -17,6 +20,8 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.shared.Registration;
+import com.vaadin.flow.spring.annotation.SpringComponent;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +33,11 @@ import java.time.LocalDate;
 @PageTitle("Note")
 @Route(value = "note", layout = MainLayout.class)
 @PermitAll
-@Component
 public class NoteView extends Main implements BeforeEnterObserver {
     private final WysiwygE editor;
     private final NoteFeign noteFeign;
 
-    @Autowired
-    public NoteView(NoteFeign noteFeign) {
+    public NoteView(@Autowired NoteFeign noteFeign) {
         this.noteFeign = noteFeign;
 
 
