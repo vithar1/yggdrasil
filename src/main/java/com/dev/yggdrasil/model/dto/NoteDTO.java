@@ -13,4 +13,6 @@ public class NoteDTO {
     private Long id;
 
     private String text;
+
+    private String encryptedText;
 }

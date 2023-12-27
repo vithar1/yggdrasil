@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: monolith #rest
+    active: rest
   datasource:
     url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/yggdrasil}
     username: ${JDBC_DATABASE_USERNAME:postgres}
@@ -23,9 +23,14 @@ spring:
   docker:
     compose:
       lifecycle-management: start-only
+  cloud:
+    openfeign:
+      okhttp:
+        enabled: true
 
 vaadin:
   whitelisted-packages: com.vaadin,org.vaadin,dev.hilla,com.dev.yggdrasil,com.wontlost
 logging:
   level:
     feign: DEBUG
+
